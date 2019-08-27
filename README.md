@@ -2,25 +2,15 @@
 Secret Family Recipe Cookbook - Backend
 
 Section Contents:
-- [/auth/login POST](#authlogin-post)
-- [/auth/register POST](#authregister-post)
-- [/recipes GET](#recipes-get)
-- [/recipes POST](#recipes-post)
-- [/recipes/:id GET](#recipesid-get)
-- [/recipes/:id PUT](#recipesid-put)
-- [/recipes/:id DELETE](#recipesid-delete)
+- [https://secretfamilyrecipes.herokuapp.com/auth/login POST](#authlogin-post)
+- [https://secretfamilyrecipes.herokuapp.com/auth/register POST](#authregister-post)
+- [https://secretfamilyrecipes.herokuapp.com/recipes GET](#recipes-get)
+- [https://secretfamilyrecipes.herokuapp.com/recipes POST](#recipes-post)
+- [https://secretfamilyrecipes.herokuapp.com/recipes/:id GET](#recipesid-get)
+- [https://secretfamilyrecipes.herokuapp.com/recipes/:id PUT](#recipesid-put)
+- [https://secretfamilyrecipes.herokuapp.com/recipes/:id DELETE](#recipesid-delete)
 
-### /auth/login POST
-
-Expects an object with this format as the request body:
-```
-{
-  "username": "User1",   //string
-  "password": "password" //string
-}
-```
-
-### /auth/register POST
+### https://secretfamilyrecipes.herokuapp.com/auth/login POST
 
 Expects an object with this format as the request body:
 ```
@@ -30,10 +20,34 @@ Expects an object with this format as the request body:
 }
 ```
 
-### /recipes GET
+### https://secretfamilyrecipes.herokuapp.com/auth/register POST
 
-Requires an `authorization` header with a JWT.
-it  will return an array of objects in this format:
+Expects an object with this format as the request body:
+```
+{
+  "username": "User1",   //string
+  "password": "password" //string
+}
+```
+
+### To make authenticated requests to the API
+
+```
+import { axiosWithAuth } from '../axiosWithAuth.js';
+```
+
+### https://secretfamilyrecipes.herokuapp.com/recipes GET
+
+Example request to get all recipes for the authenticated user:
+```
+axiosWithAuth().get('https://secretfamilyrecipes.herokuapp.com/recipes')
+          .then(result => console.log(result))
+          .catch(err => console.log(err));
+    }
+```
+
+Response data:
+
 ```
   "recipes": [
         {
@@ -61,11 +75,12 @@ it  will return an array of objects in this format:
         }
 ```
 
-### /recipes POST
+### https://secretfamilyrecipes.herokuapp.com/recipes POST
 
-Requires an `authorization` header with a JWT. Expects an object with this format as the request body:
+Example request to create a recipe:
+
 ```
-    {
+    const requestData = {
         "title": "Pomello",
         "source": "Lester",
         "notes": "Re-engineered empowering workforce",
@@ -81,9 +96,15 @@ Requires an `authorization` header with a JWT. Expects an object with this forma
             "seafood"
         ]
     }
+
+axiosWithAuth().post('https://secretfamilyrecipes.herokuapp.com/recipes', recipeData)
+          .then(result => console.log(result))
+          .catch(err => console.log(err));
+    }
+
 ```
 
-### /recipes/:id GET
+### https://secretfamilyrecipes.herokuapp.com/recipes/:id GET
 
 Requires an `authorization` header with a JWT. The object represents the recipe with the ID specified in the path:
 ```
@@ -107,7 +128,7 @@ Requires an `authorization` header with a JWT. The object represents the recipe 
     }
 ```
 
-### /recipes/:id PUT
+### https://secretfamilyrecipes.herokuapp.com/recipes/:id PUT
 
 Requires an `authorization` header with a JWT. Expects an object with this format as the request body:
 ```
@@ -129,6 +150,6 @@ Requires an `authorization` header with a JWT. Expects an object with this forma
     }
 ```
 
-### /recipes/:id DELETE
+### https://secretfamilyrecipes.herokuapp.com/recipes/:id DELETE
 
 Requires an `authorization` header with a JWT. Deletes the selected recipe if it exists and is associated with the current user.
