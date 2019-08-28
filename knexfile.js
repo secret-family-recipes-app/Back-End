@@ -9,7 +9,7 @@ module.exports = {
     },
     useNullAsDefault: true, // needed for sqlite
     migrations: {
-      directory: './migrations'
+      directory: './data/migrations'
     },
     seeds: {
       directory: './data/seeds',
@@ -28,7 +28,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: './migrations'
+      tableName: './data/migrations'
     }
   },
 
@@ -44,7 +44,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: './migrations'
+      directory: './data/migrations'
     }
   }
 
