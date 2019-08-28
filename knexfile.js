@@ -9,7 +9,7 @@ module.exports = {
     },
     useNullAsDefault: true, // needed for sqlite
     migrations: {
-      directory: './data/migrations',
+      directory: "./migrations",
     },
     seeds: {
       directory: './data/seeds',
