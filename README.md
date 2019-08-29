@@ -1,7 +1,9 @@
 # cookbook-BE
+
 Secret Family Recipe Cookbook - Backend
 
 Section Contents:
+
 - [/auth/login POST](#authlogin-post)
 - [/auth/register POST](#authregister-post)
 - [/recipes GET](#recipes-get)
@@ -13,6 +15,7 @@ Section Contents:
 ### /auth/login POST
 
 Expects an object with this format as the request body:
+
 ```
 {
   "username": "User1",   //string
@@ -23,6 +26,7 @@ Expects an object with this format as the request body:
 ### /auth/register POST
 
 Expects an object with this format as the request body:
+
 ```
 {
   "username": "User1",   //string
@@ -33,7 +37,8 @@ Expects an object with this format as the request body:
 ### /recipes GET
 
 Requires an `authorization` header with a JWT.
-it  will return an array of objects in this format:
+it will return an array of objects in this format:
+
 ```
   "recipes": [
         {
@@ -64,6 +69,7 @@ it  will return an array of objects in this format:
 ### /recipes POST
 
 Requires an `authorization` header with a JWT. Expects an object with this format as the request body:
+
 ```
     {
         "title": "Pomello",
@@ -86,6 +92,7 @@ Requires an `authorization` header with a JWT. Expects an object with this forma
 ### /recipes/:id GET
 
 Requires an `authorization` header with a JWT. The object represents the recipe with the ID specified in the path:
+
 ```
   "recipe": {
         "id": 2,
@@ -110,6 +117,7 @@ Requires an `authorization` header with a JWT. The object represents the recipe 
 ### /recipes/:id PUT
 
 Requires an `authorization` header with a JWT. Expects an object with this format as the request body:
+
 ```
     {
         "title": "Pomello",
