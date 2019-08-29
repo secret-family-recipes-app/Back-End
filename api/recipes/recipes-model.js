@@ -84,7 +84,7 @@ async function addRecipe(recipe, userId) {
     source: recipe.source,
     notes: recipe.notes
   };
-
+  console.log('***********recipeInser**********', recipeInsert);
   const newRecipe = await db('recipes')
     .insert(recipeInsert)
     .returning('id');
@@ -92,24 +92,18 @@ async function addRecipe(recipe, userId) {
 
   ingredients.forEach(async ingredient => {
     console.log('**************newRecipe***********', newRecipe);
-    ingredientInsert = { name: ingredient, recipe_id: parseInt(newRecipe, 10) };
-    await db('ingredients')
-      .insert(ingredientInsert)
-      .returning('id');
+    ingredientInsert = { name: ingredient, recipe_id: newRecipe };
+    await db('ingredients').insert(ingredientInsert);
   });
 
   instructions.forEach(async instruction => {
     instructionInsert = { name: instruction, recipe_id: newRecipe };
-    await db('instructions')
-      .insert(instructionInsert)
-      .returning('id');
+    await db('instructions').insert(instructionInsert);
   });
 
   tags.forEach(async tag => {
     tagInsert = { tag: tag, recipe_id: newRecipe };
-    await db('tags')
-      .insert(tagInsert)
-      .returning('id');
+    await db('tags').insert(tagInsert);
   });
 
   return getRecipes(userId);
