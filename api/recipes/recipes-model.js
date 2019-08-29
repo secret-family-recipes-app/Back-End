@@ -89,18 +89,18 @@ async function addRecipe(recipe, userId) {
     .returning('id');
 
   ingredients.forEach(async ingredient => {
-    ingredientInsert = { name: ingredient, recipe_id: newRecipe };
+    ingredientInsert = { name: ingredient, recipe_id: newRecipe[0] };
     console.log(ingredientInsert);
     await db('ingredients').insert(ingredientInsert);
   });
 
   instructions.forEach(async instruction => {
-    instructionInsert = { name: instruction, recipe_id: newRecipe };
+    instructionInsert = { name: instruction, recipe_id: newRecipe[0] };
     await db('instructions').insert(instructionInsert);
   });
 
   tags.forEach(async tag => {
-    tagInsert = { tag: tag, recipe_id: newRecipe };
+    tagInsert = { tag: tag, recipe_id: newRecipe[0] };
     await db('tags').insert(tagInsert);
   });
 
