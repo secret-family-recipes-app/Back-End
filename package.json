@@ -4,9 +4,10 @@
   "description": "restful api",
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^8.1.0",
     "dotenv-extended": "^2.4.0",
-    "knex-migrator": "^3.3.3",
     "knex": "^0.17.6",
+    "knex-migrator": "^3.3.3",
     "pg": "^7.12.1"
   },
   "devDependencies": {},
