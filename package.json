@@ -1,39 +1,27 @@
 {
-  "name": "cookbook-BE",
+  "name": "pt-secret-family-recipe",
   "version": "1.0.0",
-  "description": "Secret Family Recipe Cookbook - Backend",
+  "description": "restful api",
   "main": "index.js",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
     "dotenv-extended": "^2.4.0",
-    "express": "^4.17.1",
-    "helmet": "^3.18.0",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.17.6",
     "knex-migrator": "^3.3.3",
-    "pg": "^7.12.1",
-    "sqlite3": "^4.0.9"
+    "knex": "^0.17.6",
+    "pg": "^7.12.1"
   },
-  "devDependencies": {
-    "jest": "^24.8.0",
-    "nodemon": "^1.19.1",
-    "supertest": "^4.0.2"
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "server": "nodemon index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lsbw-secret-family-recipe-cookbook/cookbook-BE.git"
+    "url": "git+https://github.com/secret-family-recipes-app/Back-End.git"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lsbw-secret-family-recipe-cookbook/cookbook-BE/issues"
+    "url": "https://github.com/secret-family-recipes-app/Back-End/issues"
   },
-  "homepage": "https://github.com/lsbw-secret-family-recipe-cookbook/cookbook-BE#readme"
+  "homepage": "https://github.com/secret-family-recipes-app/Back-End#readme"
 }

@@ -1,10 +1,7 @@
 // Update with your config settings.
-require("dotenv").config();
-
 const dbConnection = process.env.DATABASE_URL;
 
 module.exports = {
-
   development: {
     client: 'sqlite3',
     connection: {
@@ -15,7 +12,7 @@ module.exports = {
       directory: './data/migrations'
     },
     seeds: {
-      directory: './data/seeds',
+      directory: './data/seeds'
     }
   },
 
@@ -23,7 +20,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'my_db',
-      user:     'username',
+      user: 'username',
       password: 'password'
     },
     pool: {
@@ -31,20 +28,18 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: './data/migrations'
+      tableName: 'knex_migrations'
     }
   },
 
   production: {
     client: 'pg',
     connection: dbConnection,
-    pool: {
-      min: 2,
-      max: 10
+    seeds: {
+      directory: './data/seeds'
     },
     migrations: {
-      directory: './data/migrations'
+      tableName: './data/migrations'
     }
   }
-
 };
