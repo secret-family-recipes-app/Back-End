@@ -6,63 +6,59 @@ router.get('/', restricted, (req, res) => {
   console.log(req.user);
   const userId = req.user.id;
 
-  Recipes
-    .getRecipes(userId)
+  Recipes.getRecipes(userId)
     .then(recipes => {
-        res.status(200).json({recipes});
+      res.status(200).json({ recipes });
     })
     .catch(err => {
-      res.status(500).json({message: 'Could not retrieve recipes.'})
+      res.status(500).json({ message: 'Could not retrieve recipes.' });
     });
 });
 
 router.get('/:id', restricted, (req, res) => {
- const recipeId = req.params.id
- const userId = req.user.id
+  const recipeId = req.params.id;
+  const userId = req.user.id;
 
-  Recipes
-    .getRecipeById(recipeId, userId)
+  Recipes.getRecipeById(recipeId, userId)
     .then(recipe => {
-      if(!recipe) {
-        res.status(404).json({message: 'No recipe found with this ID for current user.'})
+      if (!recipe) {
+        res
+          .status(404)
+          .json({ message: 'No recipe found with this ID for current user.' });
       } else {
-        res.status(200).json({recipe});
-      };
+        res.status(200).json({ recipe });
+      }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({err})
+      res.status(500).json({ err });
     });
 });
 
 router.post('/', restricted, (req, res) => {
   const recipe = req.body;
-  const userId = req.user.id
+  const userId = req.user.id;
   // console.log(recipe);
 
-  Recipes
-    .addRecipe(recipe, userId)
+  Recipes.addRecipe(recipe, userId)
     .then(recipes => {
       res.status(201).json(recipes);
     })
     .catch(err => {
-      // s
-      res.status(500).json({err})
+      res.status(500).json({ message: err.message });
     });
 });
 
 router.delete('/:id', restricted, (req, res) => {
-
   const recipeId = req.params.id;
   const userId = req.user.id;
 
-  Recipes
-    .deleteRecipe(recipeId, userId)
+  Recipes.deleteRecipe(recipeId, userId)
     .then(recipes => {
-      res.status(204).json(recipes)
+      res.status(204).json(recipes);
     })
-    .catch( err => {
-      res.status(500).json({message: 'Recipe not found.'})
+    .catch(err => {
+      res.status(500).json({ message: 'Recipe not found.' });
     });
 });
 
@@ -71,14 +67,15 @@ router.put('/:id', restricted, (req, res) => {
   const userId = req.user.id;
   const recipeUpdate = req.body;
 
-  Recipes
-    .updateRecipe(recipeId, userId, recipeUpdate)
+  Recipes.updateRecipe(recipeId, userId, recipeUpdate)
     .then(result => {
-      if(!result) {
-        res.status(404).json({message: 'No recipe found with this ID for current user.'})
+      if (!result) {
+        res
+          .status(404)
+          .json({ message: 'No recipe found with this ID for current user.' });
       } else {
         res.status(200).json(result);
-      };
+      }
     })
     .catch(err => {
       res.status(500).json(err);
