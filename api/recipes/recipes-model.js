@@ -93,6 +93,7 @@ async function addRecipe(recipe, userId) {
     .returning('id');
   console.log(newRecipe);
   console.log(newRecipe[0]);
+  console.log(typeof newRecipe[0]);
 
   ingredients.forEach(async ingredient => {
     ingredientInsert = { name: ingredient, recipe_id: newRecipe };
