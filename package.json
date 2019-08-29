@@ -24,7 +24,7 @@
     "type": "git",
     "url": "git+https://github.com/secret-family-recipes-app/Back-End.git"
   },
-  "author": "",
+  "author": "Kenneth Ridenour, Zach Christy, Jay Maas",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/secret-family-recipes-app/Back-End/issues"
