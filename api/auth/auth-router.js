@@ -8,6 +8,7 @@ const secrets = require('../../config/secrets.js');
 // for endpoints beginning with /api/auth
 router.post('/register', (req, res) => {
   let user = req.body;
+  console.log('************req body************', req.body);
   const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
   user.password = hash;
 
@@ -15,10 +16,19 @@ router.post('/register', (req, res) => {
     .then(user => {
       const token = generateToken(user); // <<<<<<<<<<<<<<<<<<<<<<<<<
 
-      res.status(201).json({username: user.username, title: user.title, tagline: user.tagline, token});
+      res
+        .status(201)
+        .json({
+          username: user.username,
+          title: user.title,
+          tagline: user.tagline,
+          token
+        });
     })
     .catch(error => {
-      res.status(500).json({message: "Unable to create user."});
+      res
+        .status(500)
+        .json({ message: 'Unable to create user.', error: error.message });
     });
 });
 
