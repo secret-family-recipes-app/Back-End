@@ -84,19 +84,13 @@ async function addRecipe(recipe, userId) {
     source: recipe.source,
     notes: recipe.notes
   };
-  console.log('***********recipeInser**********', recipeInsert);
-  console.log('***********ingredients**********', ingredients);
-  console.log('***********instructions**********', instructions);
-  console.log('***********tags**********', tags);
   const newRecipe = await db('recipes')
     .insert(recipeInsert)
     .returning('id');
-  console.log(newRecipe);
-  console.log(newRecipe[0]);
-  console.log(typeof newRecipe[0]);
 
   ingredients.forEach(async ingredient => {
     ingredientInsert = { name: ingredient, recipe_id: newRecipe };
+    console.log(ingredientInsert);
     await db('ingredients').insert(ingredientInsert);
   });
 
