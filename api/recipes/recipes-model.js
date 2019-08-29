@@ -90,8 +90,7 @@ async function addRecipe(recipe, userId) {
   console.log('***********tags**********', tags);
   const newRecipe = await db('recipes')
     .insert(recipeInsert)
-    .returning('id')
-    .first();
+    .returning('id');
   console.log(newRecipe);
   console.log(newRecipe[0]);
 
