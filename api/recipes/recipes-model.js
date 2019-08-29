@@ -91,7 +91,8 @@ async function addRecipe(recipe, userId) {
   console.log(newRecipe);
 
   ingredients.forEach(async ingredient => {
-    ingredientInsert = { name: ingredient, recipe_id: newRecipe };
+    console.log('**************newRecipe***********', newRecipe);
+    ingredientInsert = { name: ingredient, recipe_id: parseInt(newRecipe, 10) };
     await db('ingredients')
       .insert(ingredientInsert)
       .returning('id');
