@@ -14,12 +14,12 @@ async function getRecipes(userId) {
     .join('recipes', 'tags.recipe_id', 'recipes.id')
     .select('tags.tag', 'tags.recipe_id');
 
-  // let ingredients = await db('ingredient')
-  //   .where({ 'recipes.user_id': userId })
-  //   .join('ingredients', 'ingredients.recipe_id', 'recipes.id')
-  //   .select('ingredients.name as ingredients', 'ingredients.recipe_id');
+  let ingredients = await db('ingredients')
+    .where({ 'recipes.user_id': userId })
+    .join('recipes', 'ingredients.recipe_id', 'recipes.id')
+    .select('ingredients.name', 'ingredients.recipe_id');
 
-  // let instructions = await db('instruction')
+  // let instructions = await db('instructions')
   //   .where({ 'recipes.user_id': userId })
   //   .join('instructions', 'instructions.recipe_id', 'recipes.id')
   //   .select('instructions.name as instructions', 'instructions.recipe_id');
@@ -35,20 +35,20 @@ async function getRecipes(userId) {
 
     tags.forEach(tag => {
       if (recipe.id === tag.recipe_id) {
-        console.log("found tag: " + tag.tag);
         recipe.tags.push(tag.tag);
       } else {
         return false;
       }
     });
 
-    // ingredients.forEach(ingredient => {
-    //   if (recipe.id === ingredient.recipe_id) {
-    //     recipe.ingredients.push(ingredient.name);
-    //   } else {
-    //     return false;
-    //   }
-    // });
+    ingredients.forEach(ingredient => {
+      if (recipe.id === ingredient.recipe_id) {
+        console.log("found ingredient: " + ingredient.name);
+        recipe.ingredients.push(ingredient.name);
+      } else {
+        return false;
+      }
+    });
 
     // instructions.forEach(instruction => {
     //   if (recipe.id === instruction.recipe_id) {
