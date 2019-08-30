@@ -11,7 +11,7 @@ router.get('/', restricted, (req, res) => {
       res.status(200).json({ recipes });
     })
     .catch(err => {
-      res.status(500).json({ message: 'Could not retrieve recipes.' });
+      res.status(500).json({ message: 'Could not retrieve recipes.' + err });
     });
 });
 
