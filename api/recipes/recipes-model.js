@@ -35,8 +35,8 @@ async function getRecipes(userId) {
 
     tags.forEach(tag => {
       if (recipe.id === tag.recipe_id) {
-        console.log("found tag: " + tag);
-        recipe.tags.push(tag);
+        console.log("found tag: " + tag.tag);
+        recipe.tags.push(tag.tag);
       } else {
         return false;
       }
