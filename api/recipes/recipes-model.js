@@ -9,7 +9,7 @@ module.exports = {
 };
 
 async function getRecipes(userId) {
-  let tags = await db('tag')
+  let tags = await db('tags')
     .where({ 'recipes.user_id': userId })
     .join('tags', 'tags.recipe_id', 'recipes.id')
     .select('tags.tag as tags', 'tags.recipe_id');
