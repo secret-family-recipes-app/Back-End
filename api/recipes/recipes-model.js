@@ -9,10 +9,20 @@ module.exports = {
 };
 
 async function getRecipes(userId) {
-  let tags = await db('recipes')
+  let tags = await db('tag')
     .where({ 'recipes.user_id': userId })
     .join('tags', 'tags.recipe_id', 'recipes.id')
     .select('tags.tag as tags', 'tags.recipe_id');
+
+  let ingredients = await db('ingredient')
+    .where({ 'recipes.user_id': userId })
+    .join('ingredients', 'ingredients.recipe_id', 'recipes.id')
+    .select('ingredients.name as ingredients', 'ingredients.recipe_id');
+
+  let instructions = await db('instruction')
+    .where({ 'recipes.user_id': userId })
+    .join('instructions', 'instructions.recipe_id', 'recipes.id')
+    .select('instructions.name as instructions', 'instructions.recipe_id');
 
   let recipes = await db('recipes')
     .where({ 'recipes.user_id': userId })
@@ -20,6 +30,9 @@ async function getRecipes(userId) {
 
   await recipes.forEach(recipe => {
     recipe.tags = [];
+    recipe.ingredients = [];
+    recipe.instructions = [];
+
     tags.forEach(tag => {
       if (recipe.id === tag.recipe_id) {
         console.log(tag);
@@ -28,6 +41,23 @@ async function getRecipes(userId) {
         return false;
       }
     });
+
+    ingredients.forEach(ingredient => {
+      if (recipe.id === ingredient.recipe_id) {
+        recipe.ingredients.push(ingredient.name);
+      } else {
+        return false;
+      }
+    });
+
+    instructions.forEach(instruction => {
+      if (recipe.id === instruction.recipe_id) {
+        recipe.instructions.push(instruction.name);
+      } else {
+        return false;
+      }
+    });
+
   });
 
   console.log(recipes);
@@ -89,13 +119,13 @@ async function addRecipe(recipe, userId) {
     .returning('id');
 
   ingredients.forEach(async ingredient => {
-    ingredientInsert = { ingredient: ingredient, recipe_id: newRecipe[1] };
+    ingredientInsert = { name: ingredient, recipe_id: newRecipe[0] };
     console.log(ingredientInsert);
     await db('ingredients').insert(ingredientInsert);
   });
 
   instructions.forEach(async instruction => {
-    instructionInsert = { instruction: instruction, recipe_id: newRecipe[2] };
+    instructionInsert = { name: instruction, recipe_id: newRecipe[0] };
     await db('instructions').insert(instructionInsert);
   });
 
