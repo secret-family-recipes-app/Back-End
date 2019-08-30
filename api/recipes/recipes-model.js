@@ -19,10 +19,10 @@ async function getRecipes(userId) {
     .join('recipes', 'ingredients.recipe_id', 'recipes.id')
     .select('ingredients.name', 'ingredients.recipe_id');
 
-  // let instructions = await db('instructions')
-  //   .where({ 'recipes.user_id': userId })
-  //   .join('instructions', 'instructions.recipe_id', 'recipes.id')
-  //   .select('instructions.name as instructions', 'instructions.recipe_id');
+  let instructions = await db('instructions')
+    .where({ 'recipes.user_id': userId })
+    .join('recipes', 'instructions.recipe_id', 'recipes.id')
+    .select('instructions.name', 'instructions.recipe_id');
 
   let recipes = await db('recipes')
     .where({ 'recipes.user_id': userId })
@@ -50,13 +50,14 @@ async function getRecipes(userId) {
       }
     });
 
-    // instructions.forEach(instruction => {
-    //   if (recipe.id === instruction.recipe_id) {
-    //     recipe.instructions.push(instruction.name);
-    //   } else {
-    //     return false;
-    //   }
-    // });
+    instructions.forEach(instruction => {
+      if (recipe.id === instruction.recipe_id) {
+        console.log("found instruction: " + instruction.name);
+        recipe.instructions.push(instruction.name);
+      } else {
+        return false;
+      }
+    });
 
   });
 
