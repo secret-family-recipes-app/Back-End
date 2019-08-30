@@ -43,7 +43,6 @@ async function getRecipes(userId) {
 
     ingredients.forEach(ingredient => {
       if (recipe.id === ingredient.recipe_id) {
-        console.log("found ingredient: " + ingredient.name);
         recipe.ingredients.push(ingredient.name);
       } else {
         return false;
@@ -52,7 +51,6 @@ async function getRecipes(userId) {
 
     instructions.forEach(instruction => {
       if (recipe.id === instruction.recipe_id) {
-        console.log("found instruction: " + instruction.name);
         recipe.instructions.push(instruction.name);
       } else {
         return false;
@@ -62,7 +60,6 @@ async function getRecipes(userId) {
   });
 
   console.log(recipes);
-  // console.log(tags);
 
   return recipes;
 }
