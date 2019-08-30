@@ -12,7 +12,8 @@ async function getRecipes(userId) {
   let tags = await db('tags')
     .where({ 'recipes.user_id': userId })
     .join('recipes', 'tags.recipe_id', 'recipes.id')
-    .select('tags.tag', 'tags.recipe_id');
+    .select('tags.id', 'tags.tag', 'tags.recipe_id')
+    .orderBy('tags.id', 'asc');
 
   let ingredients = await db('ingredients')
     .where({ 'recipes.user_id': userId })
@@ -22,7 +23,8 @@ async function getRecipes(userId) {
   let instructions = await db('instructions')
     .where({ 'recipes.user_id': userId })
     .join('recipes', 'instructions.recipe_id', 'recipes.id')
-    .select('instructions.name', 'instructions.recipe_id');
+    .select('instructions.id', 'instructions.name', 'instructions.recipe_id')
+    .orderBy('instructions.id', 'asc');
 
   let recipes = await db('recipes')
     .where({ 'recipes.user_id': userId })
@@ -122,10 +124,15 @@ async function addRecipe(recipe, userId) {
     await db('ingredients').insert(ingredientInsert);
   });
 
-  instructions.forEach(async instruction => {
+  for (instruction of instructions) {
     instructionInsert = { name: instruction, recipe_id: newRecipe[0] };
     await db('instructions').insert(instructionInsert);
-  });
+  }
+
+  // instructions.forEach(async instruction => {
+  //   instructionInsert = { name: instruction, recipe_id: newRecipe[0] };
+  //   await db('instructions').insert(instructionInsert);
+  // });
 
   tags.forEach(async tag => {
     tagInsert = { tag: tag, recipe_id: newRecipe[0] };
