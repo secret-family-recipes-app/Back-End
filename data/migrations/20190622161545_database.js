@@ -68,7 +68,7 @@ exports.up = async function(knex, Promise) {
       .onUpdate('CASCADE')
 
     tbl
-      .string('name')
+      .string('name', 1024)
       .notNullable();
   });
 
