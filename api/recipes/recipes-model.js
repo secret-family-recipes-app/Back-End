@@ -28,7 +28,8 @@ async function getRecipes(userId) {
 
   let recipes = await db('recipes')
     .where({ 'recipes.user_id': userId })
-    .select('recipes.*');
+    .select('recipes.*')
+    .orderBy('recipes.id', 'desc');
 
   await recipes.forEach(recipe => {
     recipe.tags = [];
