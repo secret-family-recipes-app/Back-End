@@ -18,7 +18,8 @@ async function getRecipes(userId) {
   let ingredients = await db('ingredients')
     .where({ 'recipes.user_id': userId })
     .join('recipes', 'ingredients.recipe_id', 'recipes.id')
-    .select('ingredients.name', 'ingredients.recipe_id');
+    .select('ingredients.*')
+    .orderBy('ingredients.id', 'asc');
 
   let instructions = await db('instructions')
     .where({ 'recipes.user_id': userId })
