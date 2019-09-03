@@ -34,12 +34,12 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: dbConnection,
+    connection: process.env.DATABASE_URL,
     seeds: {
       directory: './data/seeds'
     },
     migrations: {
-      tableName: './app/migrations'
+      tableName: './data/migrations'
     }
   }
 };
