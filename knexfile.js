@@ -39,7 +39,7 @@ module.exports = {
       directory: './data/seeds'
     },
     migrations: {
-      tableName: './data/migrations'
+      tableName: './app/migrations'
     }
   }
 };
